@@ -36,3 +36,6 @@ lib-cov
 
 # tarball generated for publishing
 *.tgz
+
+.env
+.env.*
