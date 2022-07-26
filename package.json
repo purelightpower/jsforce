@@ -79,6 +79,7 @@
     "babel-register": "^6.26.0",
     "browserify": "^16.2.2",
     "bufferutil": "^4.0.0",
+    "dotenv": "^16.0.1",
     "envify": "^3.4.1",
     "espower-loader": "^1.2.2",
     "espowerify": "^1.1.0",
