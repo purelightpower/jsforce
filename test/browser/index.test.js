@@ -28,11 +28,12 @@ fs.readdir(htmlDir, function (error, files) {
             },
         ])
         .then((answers) => {
-            const filePath = path.join(htmlDir, answers.test);
             const port = process.env.PORT || 3000;
+            const projectDir = path.resolve(__dirname, "../../");
+            console.log(projectDir);
             http.createServer(function (req, res) {
                 fs.readFile(
-                    path.resolve(htmlDir, req.url),
+                    path.resolve(projectDir, req.url.substring(1)),
                     function (error, data) {
                         if (error) {
                             res.writeHead(404);
@@ -43,7 +44,6 @@ fs.readdir(htmlDir, function (error, files) {
                         if (req.url.endsWith(".html")) {
                             let html = data.toString();
                             const matches = html.match(/\[\%\s?.+\s?\%\]/g);
-                            console.log(`There are ${matches.length} matches`);
                             for (const match of matches) {
                                 let variable = match.replace("[%", "");
                                 variable = variable.replace("%]", "");
@@ -58,6 +58,7 @@ fs.readdir(htmlDir, function (error, files) {
                     }
                 );
             }).listen(port);
-            open(`http://localhost:${port}/${filePath}`);
+            const relativeHtmlDir = path.relative(projectDir, htmlDir);
+            open(`http://localhost:${port}/${path.join(relativeHtmlDir, answers.test)}`);
         });
 });

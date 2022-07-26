@@ -6,13 +6,12 @@
     <meta name="viewport" content="width=device-width, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-    <script src="../../../build/jsforce-core.js"></script>
-    <script src="../../../build/jsforce-api-bulk.js"></script>
+    <script src="/build/jsforce-core.js"></script>
+    <script src="/build/jsforce-api-bulk.js"></script>
     <script>
         jsforce.browser.init({
             clientId: '[% SALESFORCE_CONSUMER_KEY %]',
-            redirectUri: '/client.test.html',
-            proxyUrl: 'https://node-salesforce-proxy.herokuapp.com/proxy'
+            redirectUri: window.location.href,
         });
         var conn;
         $(function () {
