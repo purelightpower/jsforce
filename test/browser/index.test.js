@@ -1,3 +1,4 @@
+require("dotenv").config();
 const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs");
@@ -39,7 +40,21 @@ fs.readdir(htmlDir, function (error, files) {
                             return;
                         }
                         res.writeHead(200);
-                        res.end(data);
+                        if (req.url.endsWith(".html")) {
+                            let html = data.toString();
+                            const matches = html.match(/\[\%\s?.+\s?\%\]/g);
+                            console.log(`There are ${matches.length} matches`);
+                            for (const match of matches) {
+                                let variable = match.replace("[%", "");
+                                variable = variable.replace("%]", "");
+                                variable = variable.trim();
+                                const value = process.env[variable] ? process.env[variable] : "";
+                                html = html.replace(match, value);
+                            }
+                            res.end(html);
+                        } else {
+                            res.end(data);
+                        }
                     }
                 );
             }).listen(port);
