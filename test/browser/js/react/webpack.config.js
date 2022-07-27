@@ -1,4 +1,5 @@
 const path = require("path");
+const Dotenv = require("dotenv-webpack");
 
 const babelConfigFile = path.resolve(__dirname, "babel.config.json");
 
@@ -38,4 +39,6 @@ module.exports = {
         path: path.resolve(__dirname, "prod/"),
         filename: "bundle.js",
     },
+    plugins: [new Dotenv()],
+    devtool: "source-map",
 };
