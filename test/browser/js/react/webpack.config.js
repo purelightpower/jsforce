@@ -40,5 +40,5 @@ module.exports = {
         filename: "bundle.js",
     },
     plugins: [new Dotenv()],
-    devtool: "source-map",
+    devtool: "eval-source-map",
 };
