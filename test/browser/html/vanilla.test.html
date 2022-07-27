@@ -38,7 +38,7 @@
             console.log("start query...");
             var ul = $('#result');
             ul.empty();
-            conn.query("SELECT Id, Name FROM Account", function (err, res) {
+            conn.query("SELECT Id, Name FROM Account LIMIT 20", function (err, res) {
                 console.log("...done");
                 if (err) { return console.error(err); }
                 console.log(res);
