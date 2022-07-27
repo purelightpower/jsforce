@@ -10,12 +10,15 @@ class App extends React.Component {
         jsforce.browser.init({
             clientId: process.env.SALESFORCE_CONSUMER_KEY,
             redirectUri: window.location.href,
-            loginUrl: "https://test.salesforce.com"
+            loginUrl: "https://test.salesforce.com",
         });
     }
 
     componentDidMount() {
         jsforce.browser.on("connect", this.getUser.bind(this));
+        if (jsforce.browser.isLoggedIn()) {
+            this.getUser(jsforce.browser.connection);
+        }
     }
 
     getUser(connection) {
@@ -36,10 +39,17 @@ class App extends React.Component {
                 <p>
                     <span>Welcome to the JSForce React test.</span>
                     {jsforce.browser.isLoggedIn() ? (
-                        <span>
-                            You are currently logged in as
-                            {this.state.user.username}
-                        </span>
+                        this.state.user ? (
+                            <span>
+                                You are currently logged in as
+                                {this.state.user.username}
+                            </span>
+                        ) : (
+                            <span>
+                                You are logged in, but there was an issue
+                                finding your user information.
+                            </span>
+                        )
                     ) : (
                         <span>
                             You are not logged in yet,
