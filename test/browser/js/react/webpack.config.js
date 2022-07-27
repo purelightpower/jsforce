@@ -27,7 +27,13 @@ module.exports = {
             },
         ],
     },
-    resolve: { extensions: ["*", ".js", ".jsx"] },
+    resolve: {
+        extensions: ["*", ".js", ".jsx"],
+        fallback: {
+            stream: require.resolve("stream-browserify"),
+            timers: require.resolve("timers-browserify"),
+        },
+    },
     output: {
         path: path.resolve(__dirname, "prod/"),
         filename: "bundle.js",
