@@ -39,3 +39,6 @@ lib-cov
 
 .env
 .env.*
+
+# React Test Output
+test/browser/js/react/prod/
