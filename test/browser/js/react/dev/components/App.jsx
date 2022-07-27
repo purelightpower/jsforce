@@ -10,6 +10,7 @@ class App extends React.Component {
         jsforce.browser.init({
             clientId: process.env.SALESFORCE_CONSUMER_KEY,
             redirectUri: window.location.href,
+            loginUrl: "https://test.salesforce.com"
         });
     }
 
