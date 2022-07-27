@@ -16,36 +16,28 @@ class App extends React.Component {
     }
 
     componentDidMount() {
-        jsforce.browser.on("connect", this.getData.bind(this));
+        jsforce.browser.on("connect", this.setUserData.bind(this));
         if (jsforce.browser.isLoggedIn()) {
-            this.getData(jsforce.browser.connection);
+            this.setUserData(jsforce.browser.connection);
         }
     }
 
-    getData(connection) {
-        this.getUser(connection)
-            .catch(() => Promise.resolve())
-            .then(() => this.getAccounts(connection));
-    }
-
-    getUser(connection) {
-        return new Promise((resolve, reject) => {
-            connection.identity((error, response) => {
-                if (error) {
-                    reject(error);
-                } else {
-                    this.setState({
-                        user: response,
-                    });
-                    resolve(response);
-                }
+    setUserData(connection) {
+        return connection
+            .getUser()
+            .then((user) => {
+                this.setState({
+                    user,
+                });
+            })
+            .catch((error) => {
+                throw error;
             });
-        });
     }
 
-    getAccounts(connection) {
+    setAccounts() {
         return new Promise((resolve, reject) => {
-            connection.query(
+            jsforce.browser.connection.query(
                 "SELECT Id, Name FROM Account LIMIT 20",
                 (err, res) => {
                     if (err) {
@@ -70,8 +62,8 @@ class App extends React.Component {
                     {loggedIn ? (
                         this.state.user ? (
                             <span>
-                                You are currently logged in as
-                                {this.state.user.username}
+                                You are currently logged in as{" "}
+                                {this.state.user.Name}
                             </span>
                         ) : (
                             <span>
@@ -89,13 +81,24 @@ class App extends React.Component {
                         </span>
                     )}
                 </p>
-                <ul>
-                    {loggedIn &&
-                        this.state.accounts &&
-                        this.state.accounts.map((account, index) => (
-                            <li key={index}>{account.Name}</li>
-                        ))}
-                </ul>
+                <div className="App-accounts">
+                    <div className="App-accounts-btn">
+                        <button onClick={this.setAccounts.bind(this)}>
+                            {this.state.accounts === null
+                                ? "Get Accounts"
+                                : "Refresh"}
+                        </button>
+                    </div>
+                    <div className="App-accounts-list">
+                        <ul>
+                            {loggedIn &&
+                                this.state.accounts &&
+                                this.state.accounts.map((account, index) => (
+                                    <li key={index}>{account.Name}</li>
+                                ))}
+                        </ul>
+                    </div>
+                </div>
             </div>
         );
     }
