@@ -43,12 +43,16 @@ fs.readdir(htmlDir, function (error, files) {
                         if (req.url.endsWith(".html")) {
                             let html = data.toString();
                             const matches = html.match(/\[\%\s?.+\s?\%\]/g);
-                            for (const match of matches) {
-                                let variable = match.replace("[%", "");
-                                variable = variable.replace("%]", "");
-                                variable = variable.trim();
-                                const value = process.env[variable] ? process.env[variable] : "";
-                                html = html.replace(match, value);
+                            if (matches) {
+                                for (const match of matches) {
+                                    let variable = match.replace("[%", "");
+                                    variable = variable.replace("%]", "");
+                                    variable = variable.trim();
+                                    const value = process.env[variable]
+                                        ? process.env[variable]
+                                        : "";
+                                    html = html.replace(match, value);
+                                }
                             }
                             res.end(html);
                         } else {
@@ -58,6 +62,11 @@ fs.readdir(htmlDir, function (error, files) {
                 );
             }).listen(port);
             const relativeHtmlDir = path.relative(projectDir, htmlDir);
-            open(`http://localhost:${port}/${path.join(relativeHtmlDir, answers.test)}`);
+            open(
+                `http://localhost:${port}/${path.join(
+                    relativeHtmlDir,
+                    answers.test
+                )}`
+            );
         });
 });
