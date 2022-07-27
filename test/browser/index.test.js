@@ -27,7 +27,27 @@ fs.readdir(htmlDir, function (error, files) {
                 choices: htmlFiles,
             },
         ])
-        .then((answers) => {
+        .then(
+            (answers) =>
+                new Promise((resolve, reject) => {
+                    if (answers.test === "react.test.html") {
+                        const { exec } = require("child_process");
+                        exec(
+                            "npx webpack -c ./test/browser/js/react/webpack.config.js",
+                            (error) => {
+                                if (error) {
+                                    reject(error);
+                                } else {
+                                    resolve(answers.test);
+                                }
+                            }
+                        );
+                    } else {
+                        resolve(answers.test);
+                    }
+                })
+        )
+        .then((page) => {
             const port = process.env.PORT || 3000;
             const projectDir = path.resolve(__dirname, "../../");
             http.createServer(function (req, res) {
@@ -63,10 +83,7 @@ fs.readdir(htmlDir, function (error, files) {
             }).listen(port);
             const relativeHtmlDir = path.relative(projectDir, htmlDir);
             open(
-                `http://localhost:${port}/${path.join(
-                    relativeHtmlDir,
-                    answers.test
-                )}`
+                `http://localhost:${port}/${path.join(relativeHtmlDir, page)}`
             );
         });
 });
