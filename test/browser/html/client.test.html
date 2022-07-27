@@ -12,6 +12,7 @@
         jsforce.browser.init({
             clientId: '[% SALESFORCE_CONSUMER_KEY %]',
             redirectUri: window.location.href,
+            loginUrl: "https://test.salesforce.com"
         });
         var conn;
         $(function () {
