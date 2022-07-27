@@ -113,7 +113,6 @@
     "./index": "./lib/browser/jsforce",
     "./index.js": "./lib/browser/jsforce",
     "./core": "./lib/browser/core",
-    "./core.js": "./lib/browser/core",
-    "request": "./lib/browser/request.js"
+    "./core.js": "./lib/browser/core"
   }
 }
