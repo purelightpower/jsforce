@@ -30,7 +30,6 @@ fs.readdir(htmlDir, function (error, files) {
         .then((answers) => {
             const port = process.env.PORT || 3000;
             const projectDir = path.resolve(__dirname, "../../");
-            console.log(projectDir);
             http.createServer(function (req, res) {
                 fs.readFile(
                     path.resolve(projectDir, req.url.substring(1)),
