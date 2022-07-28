@@ -60,11 +60,12 @@
   },
   "dependencies": {
     "base64-url": "^2.2.0",
+    "browser-xml2js": "^0.4.19",
     "co-prompt": "^1.0.0",
     "coffeescript": "^1.10.0",
     "commander": "^2.9.0",
     "csv-parse": "^5.3.0",
-    "csv-stringify": "^1.0.4",
+    "csv-stringify": "^6.2.0",
     "faye": "^1.4.0",
     "inherits": "^2.0.1",
     "lodash": "^4.17.19",
