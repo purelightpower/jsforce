@@ -1,8 +1,6 @@
-# jsforce 
+# JSForce 
 
-Salesforce API Library for JavaScript applications (both on web browser and Node.js)
-
-[![CircleCI](https://circleci.com/gh/jsforce/jsforce.svg?style=svg)](https://circleci.com/gh/jsforce/jsforce)
+Purelight Power's fork of Shinichi Tomita's [jsforce](https://github.com/jsforce/jsforce). JSForce is a Salesforce API Library for JavaScript applications (both on web browser and Node.js).
 
 ## Overview
 
@@ -40,12 +38,17 @@ See [license](LICENSE) (MIT License).
 
 - Shinichi Tomita <shinichi.tomita@gmail.com>
 
+## Contributors
+
+- Morgan Billingsley <mbillingsley@purelightpower.com>
 
 ## Notes
 
-If you have any questions first file it on [issues](https://github.com/jsforce/jsforce/issues) before contacting authors via e-mail.
+This is a fork of Shinichi Tomita's original repository. We made some enhancements for using the library in the browser.
 
 ## Tests
+
+### NodeJS Tests
 
 In order to run tests you will need a [Salesforce Developer Org](https://developer.salesforce.com/signup)
 
@@ -59,16 +62,24 @@ Finally, to run the tests simply do:
 
     SF_USERNAME=myusername SF_PASSWORD=password+securityToken npm run test:node
 
-    SF_USERNAME=myusername SF_PASSWORD=password+securityToken npm run test:browser
+### Browser Tests
+
+To run the browser tests, you need to do the following:
+
+1. Create a `.env` file.
+2. Add a variable in the `.env` file called `SALESFORCE_CONSUMER_KEY=`. It should be set the the value of your Connected Salesforce App's consumer key.
+3. Once you've done the previous two steps, you can run the following command:
+
+```bash
+npm run test:browser
+```
+
+This will give you a list of tests that can be run, select one and a new tab should be opened in your machine's default browser for the test that you selected.
 
 ## Contributions
 
-Your contributions are welcome: both by reporting issues on [GitHub issues](https://github.com/jsforce/jsforce/issues) or pull-requesting patches.
+Your contributions are welcome: both by reporting issues on [GitHub issues](https://github.com/purelightpower/jsforce/issues) or pull-requesting patches.
 
-If you want to implement any additional features, to be added to JSforce to our master branch, which may or may not be merged please first check current [opening issues](https://github.com/jsforce/jsforce/issues?q=is%3Aopen) with milestones and confirm whether the feature is on road map or not.
+If you want to implement any additional features, to be added to JSforce to our master branch, which may or may not be merged please first check current [opening issues](https://github.com/purelightpower/jsforce/issues?q=is%3Aopen) with milestones and confirm whether the feature is on road map or not.
 
 If your feature implementation is brand-new or fixing unsupposed bugs in the library's test cases, please include addtional test codes in the `test/` directory.
-
-
-
-
